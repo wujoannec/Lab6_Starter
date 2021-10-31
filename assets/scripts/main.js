@@ -69,8 +69,12 @@ function createRecipeCards() {
   const main = document.querySelector("main");
 
   for (let i = 0; i < recipeDataSize; i++) {
-    // const recipeCard =;
-    main.appendChild(document.createElement("recipe-card"))
+    const recipeCard =document.createElement("recipe-card");
+    main.appendChild(recipeCard);
+    console.log("hi");  
+    recipeCard.data = recipeData[i];
+    
+    console.log("hi");
   }
 
   // iterating over the recipeData object and creating <recipe-card> custom elements for each of them, then attaching them to the <main> element in index.html
