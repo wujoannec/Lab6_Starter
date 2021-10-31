@@ -11,7 +11,7 @@ const recipes = [
 // Once all of the recipes that were specified above have been fetched, their
 // data will be added to this object below. You may use whatever you like for the
 // keys as long as it's unique, one suggestion might but the URL itself
-const recipeData = {}
+let recipeData = {}
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -19,6 +19,7 @@ window.addEventListener('DOMContentLoaded', init);
 async function init() {
   // fetch the recipes and wait for them to load
   let fetchSuccessful = await fetchRecipes();
+
   // if they didn't successfully load, quit the function
   if (!fetchSuccessful) {
     console.log('Recipe fetch unsuccessful');
@@ -34,6 +35,18 @@ async function fetchRecipes() {
   return new Promise((resolve, reject) => {
     // This function is called for you up above
     // From this function, you are going to fetch each of the recipes in the 'recipes' array above.
+    for (let i = 0; i < recipes.length; i++) {
+      fetch(recipes[i])
+        .then(response => response.json())
+        .then(data => recipeData[recipes[i]]=data)
+        .then(()=> {if (i==recipes.length-1) resolve(true);})
+        .catch((error) => {
+          console.error('Error:', error);
+          reject(false);
+        });
+    }
+ 
+
     // Once you have that data, store it in the 'recipeData' object. You can use whatever you like
     // for the keys. Once everything in the array has been successfully fetched, call the resolve(true)
     // callback function to resolve this promise. If there's any error fetching any of the items, call
