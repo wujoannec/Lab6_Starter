@@ -35,7 +35,8 @@ async function fetchRecipes() {
   return new Promise((resolve, reject) => {
     // This function is called for you up above
     // From this function, you are going to fetch each of the recipes in the 'recipes' array above.
-    for (let i = 0; i < recipes.length; i++) {
+    let recipesSize = recipes.length;
+    for (let i = 0; i < recipesSize; i++) {
       fetch(recipes[i])
         .then(response => response.json())
         .then(data => recipeData[recipes[i]]=data)
@@ -46,7 +47,6 @@ async function fetchRecipes() {
         });
     }
  
-
     // Once you have that data, store it in the 'recipeData' object. You can use whatever you like
     // for the keys. Once everything in the array has been successfully fetched, call the resolve(true)
     // callback function to resolve this promise. If there's any error fetching any of the items, call
@@ -65,6 +65,15 @@ function createRecipeCards() {
   // files with the recipeData Object above. Make sure you only display the 
   // three recipes we give you, you'll use the bindShowMore() function to
   // show any others you've added when the user clicks on the "Show more" button.
+  let recipeDataSize=Object.keys(recipeData).length;
+  const main = document.querySelector("main");
+
+  for (let i = 0; i < recipeDataSize; i++) {
+    // const recipeCard =;
+    main.appendChild(document.createElement("recipe-card"))
+  }
+
+  // iterating over the recipeData object and creating <recipe-card> custom elements for each of them, then attaching them to the <main> element in index.html
 
   // Part 1 Expose - TODO
 }
