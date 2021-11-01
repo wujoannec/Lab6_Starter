@@ -107,13 +107,60 @@ class RecipeCard extends HTMLElement {
     //    & All of the helper functions below
     const img = document.createElement('img');
     img.src = searchForKey(data, "thumbnailUrl");
+    img.alt = searchForKey(data, "name");
+    console.log(img.src);
+
+    const a = document.createElement('a');
+    const aText = searchForKey(data, "headline")
+    a.textContent = aText;
+    a.href = getUrl(data);
+
+    const time = document.createElement('time');
+    const convertedTime = convertTime(searchForKey(data, "totalTime"));
+    time.textContent=convertedTime;
+
+
+    const p1 = document.createElement('p');
+    p1.class = "title";
+    
+
+    const p2 = document.createElement('p');
+    p2.class = "organization";
+    p2.textContent = getOrganization(data)
+
+    const div = document.createElement('div');
+    div.class = "rating";
+
+    
+    let flag = false;
+    const ratingValue = searchForKey(data, "ratingValue");
+    const ratingCount = searchForKey(data, "ratingCount");
+    const span1 = document.createElement('span');
+    const span2 = document.createElement('span');
+
+    if (ratingCount==undefined || ratingCount == 0) 
+      span1.textContent = "No Reviews";
+    else {
+      span1.textContent= ratingValue;
+      span2.textContent= "("+ratingCount+")";
+      flag = true;
+    }
+      
+    
+
+
+    
+
 
     card.appendChild(img);
-    // card.appendChild();
-    // card.appendChild();
-    // card.appendChild();
-    // card.appendChild();
-
+    card.appendChild(time);
+    card.appendChild(a);
+    card.appendChild(p1);
+    card.appendChild(p2);
+    card.appendChild(div);
+    card.appendChild(span1);
+    if (flag) 
+      card.appendChild(span2); 
 
 
     // Part 1 Expose - TODO
