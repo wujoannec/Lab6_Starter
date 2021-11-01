@@ -86,7 +86,7 @@ class RecipeCard extends HTMLElement {
       }
     `;
 
-    console.log(data)
+    // console.log(data)
     styleElem.innerHTML = styles;
 
     // Here's the root element that you'll want to attach all of your other elements to
@@ -95,7 +95,6 @@ class RecipeCard extends HTMLElement {
 
     // Make sure to attach your root element and styles to the shadow DOM you
     // created in the constructor()
-    this.shadowRoot.append(styleElem,card);
 
 
     // Some functions that will be helpful here:
@@ -105,63 +104,69 @@ class RecipeCard extends HTMLElement {
     //    element.setAttribute()
     //    element.appendChild()
     //    & All of the helper functions below
-    const img = document.createElement('img');
-    img.src = searchForKey(data, "thumbnailUrl");
-    img.alt = searchForKey(data, "name");
-    console.log(img.src);
+    const img1 = document.createElement('img');
+    img1.setAttribute("src", searchForKey(data, "thumbnailUrl"));
+    img1.setAttribute("alt", searchForKey(data, "name"));
 
+
+
+
+
+
+
+    const p1 = document.createElement('p');
+    p1.classList.add = "title";
+    
     const a = document.createElement('a');
-    const aText = searchForKey(data, "headline")
-    a.textContent = aText;
-    a.href = getUrl(data);
+    a.textContent = searchForKey(data, "headline");
+    // a.href = getUrl(data);
+    a.setAttribute("href", getUrl(data));
+
+    const p2 = document.createElement('p');
+    p2.classList.add = "organization";
+    p2.textContent = getOrganization(data);
+
+    const div = document.createElement('div');
+    div.classList.add = "rating";
+
+    
+    const ratingValue = searchForKey(data, "ratingValue");
+    const ratingApprox = Math.round(ratingValue);
+    const ratingCount = searchForKey(data, "ratingCount");
+    const span1 = document.createElement('span');
+    const img2 = document.createElement('img');
+    const span2 = document.createElement('span');
+
+    if (ratingCount==undefined || ratingCount == 0) 
+      span1.textContent= "No Reviews";
+    else {
+      span1.textContent=  ratingValue;
+      span2.textContent = "("+ratingCount+")";
+      img2.setAttribute( "src", "/assets/images/icons/"+ratingApprox+"-star.svg");
+      img2.setAttribute( "alt" ,ratingApprox+" stars");
+    }
 
     const time = document.createElement('time');
     const convertedTime = convertTime(searchForKey(data, "totalTime"));
     time.textContent=convertedTime;
-
-
-    const p1 = document.createElement('p');
-    p1.class = "title";
-    
-
-    const p2 = document.createElement('p');
-    p2.class = "organization";
-    p2.textContent = getOrganization(data)
-
-    const div = document.createElement('div');
-    div.class = "rating";
-
-    
-    let flag = false;
-    const ratingValue = searchForKey(data, "ratingValue");
-    const ratingCount = searchForKey(data, "ratingCount");
-    const span1 = document.createElement('span');
-    const span2 = document.createElement('span');
-
-    if (ratingCount==undefined || ratingCount == 0) 
-      span1.textContent = "No Reviews";
-    else {
-      span1.textContent= ratingValue;
-      span2.textContent= "("+ratingCount+")";
-      flag = true;
-    }
       
-    
+    const p3 = document.createElement('p');
+    p3.classList.add("ingredients");
+    p3.textContent = createIngredientList(searchForKey(data, "recipeIngredient"));
 
 
-    
-
-
-    card.appendChild(img);
-    card.appendChild(time);
-    card.appendChild(a);
+    card.appendChild(img1);
     card.appendChild(p1);
+    p1.appendChild(a);
     card.appendChild(p2);
     card.appendChild(div);
-    card.appendChild(span1);
-    if (flag) 
-      card.appendChild(span2); 
+    div.appendChild(span1);
+    div.appendChild(img2);
+    div.appendChild(span2); 
+    card.appendChild(time);
+    card.appendChild(p3);
 
+    this.shadowRoot.append(styleElem,card);
 
     // Part 1 Expose - TODO
 
