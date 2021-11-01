@@ -141,7 +141,7 @@ class RecipeCard extends HTMLElement {
     else {
       span1.textContent=  ratingValue;
       span2.textContent = "("+ratingCount+")";
-      img2.setAttribute( "src", "/assets/images/icons/"+ratingApprox+"-star.svg");
+      img2.setAttribute( "src", "assets/images/icons/"+ratingApprox+"-star.svg");
       img2.setAttribute( "alt" ,ratingApprox+" stars");
     }
 
