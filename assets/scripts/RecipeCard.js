@@ -115,19 +115,18 @@ class RecipeCard extends HTMLElement {
 
 
     const p1 = document.createElement('p');
-    p1.classList.add = "title";
+    p1.classList.add("title");
     
     const a = document.createElement('a');
     a.textContent = searchForKey(data, "headline");
-    // a.href = getUrl(data);
     a.setAttribute("href", getUrl(data));
 
     const p2 = document.createElement('p');
-    p2.classList.add = "organization";
+    p2.classList.add("organization");
     p2.textContent = getOrganization(data);
 
     const div = document.createElement('div');
-    div.classList.add = "rating";
+    div.classList.add("rating");
 
     
     const ratingValue = searchForKey(data, "ratingValue");
