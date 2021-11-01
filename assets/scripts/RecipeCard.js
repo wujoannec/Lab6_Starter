@@ -126,7 +126,7 @@ class RecipeCard extends HTMLElement {
     p2.textContent = getOrganization(data);
 
     const div = document.createElement('div');
-    div.classList.add("rating");
+    div.className = "rating";
 
     
     const ratingValue = searchForKey(data, "ratingValue");
